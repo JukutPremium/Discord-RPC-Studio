@@ -1,0 +1,27 @@
+{
+  "name": "rpc-studio",
+  "version": "1.0.0",
+  "description": "Custom Discord Rich Presence editor (Windows / Linux / macOS)",
+  "main": "main.js",
+  "author": "Shaka",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "protect": "node scripts/protect.js",
+    "dist:win": "npm run protect && electron-builder --win --config electron-builder.config.js",
+    "dist:mac": "npm run protect && electron-builder --mac --config electron-builder.config.js",
+    "release:win": "npm run protect && electron-builder --win --config electron-builder.config.js --publish always",
+    "release:mac": "npm run protect && electron-builder --mac --config electron-builder.config.js --publish always"
+  },
+  "dependencies": {
+    "@xhayper/discord-rpc": "^1.5.1",
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3",
+    "javascript-obfuscator": "^4.1.1",
+    "@electron/fuses": "^1.8.0"
+  },
+  "releasesUrl": "https://github.com/JukutPremium/Discord-RPC-Studio/releases/latest"
+}

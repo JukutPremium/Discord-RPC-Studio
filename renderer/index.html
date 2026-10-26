@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: file: data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>RPC Studio</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">RPC Studio</div>
+  <div class="conn">
+    <span id="ver" class="ver"></span>
+    <button id="upBtn" class="primary upbtn hide"></button>
+    <select id="lang" class="langsel" data-i18n-title="app.language"></select>
+    <span id="dot" class="dot"></span>
+    <span id="statusText"></span>
+    <input id="clientId" data-i18n-ph="ph.clientId" spellcheck="false" inputmode="numeric">
+    <button id="connectBtn" class="primary"></button>
+  </div>
+</header>
+
+<main>
+  <section class="col">
+    <div class="card">
+      <h3 data-i18n="act.title"></h3>
+      <div class="grid2">
+        <label><span data-i18n="act.type"></span>
+          <select id="type">
+            <option value="0" data-i18n="act.t0"></option>
+            <option value="2" data-i18n="act.t2"></option>
+            <option value="3" data-i18n="act.t3"></option>
+            <option value="5" data-i18n="act.t5"></option>
+          </select>
+        </label>
+        <label><span data-i18n="act.display"></span>
+          <select id="statusDisplayType">
+            <option value="0" data-i18n="act.d0"></option>
+            <option value="2" data-i18n="act.d2"></option>
+            <option value="1" data-i18n="act.d1"></option>
+          </select>
+        </label>
+      </div>
+      <label><span data-i18n="act.details"></span> <input id="details" maxlength="128" data-i18n-ph="ph.details"></label>
+      <label><span data-i18n="act.state"></span> <input id="state" maxlength="128" data-i18n-ph="ph.state"></label>
+      <p class="hint" data-i18n="dyn.label"></p>
+      <div id="chips" class="chips"></div>
+      <p class="hint" data-i18n="dyn.note"></p>
+      <details><summary data-i18n="act.links"></summary>
+        <label>Details URL <input id="detailsUrl" placeholder="https://example.com/project"></label>
+        <label>State URL <input id="stateUrl" placeholder="https://example.com/status"></label>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="img.title"></h3>
+      <div class="imgrow">
+        <div>
+          <label><span data-i18n="img.large"></span>
+            <div class="pick"><input id="largeImage" data-i18n-ph="ph.image"><select id="largePick"></select></div>
+          </label>
+          <label><span data-i18n="img.hover"></span> <input id="largeText" maxlength="128" data-i18n-ph="ph.largeText"></label>
+        </div>
+        <div>
+          <label><span data-i18n="img.small"></span>
+            <div class="pick"><input id="smallImage" data-i18n-ph="ph.image"><select id="smallPick"></select></div>
+          </label>
+          <label><span data-i18n="img.hover"></span> <input id="smallText" maxlength="128" data-i18n-ph="ph.smallText"></label>
+        </div>
+      </div>
+      <details><summary data-i18n="img.linkSummary"></summary>
+        <label><span data-i18n="img.largeLink"></span> <input id="largeUrl" placeholder="https://example.com/gallery"></label>
+        <label><span data-i18n="img.smallLink"></span> <input id="smallUrl" placeholder="https://example.com/about"></label>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="time.title"></h3>
+      <div class="grid2">
+        <label><span data-i18n="time.timer"></span>
+          <select id="timeMode">
+            <option value="none" data-i18n="time.none"></option>
+            <option value="elapsed" data-i18n="time.elapsed"></option>
+            <option value="custom" data-i18n="time.custom"></option>
+            <option value="countdown" data-i18n="time.countdown"></option>
+          </select>
+        </label>
+        <label id="customWrap" class="hide"><span data-i18n="time.from"></span> <input id="customStart" type="datetime-local"></label>
+        <label id="countWrap" class="hide"><span data-i18n="time.minutes"></span> <input id="countdownMin" type="number" min="1" value="30" placeholder="30"></label>
+      </div>
+      <div class="grid2">
+        <label><span data-i18n="time.party"></span> <input id="partySize" type="number" min="0" placeholder="1"></label>
+        <label><span data-i18n="time.partyMax"></span> <input id="partyMax" type="number" min="0" placeholder="4"></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span data-i18n="btns.title"></span> <small data-i18n="btns.note"></small></h3>
+      <div class="grid2">
+        <label><span data-i18n="btns.label" data-n="1"></span> <input id="btn1Label" maxlength="32" data-i18n-ph="ph.btn1Label"></label>
+        <label><span data-i18n="btns.url"></span> <input id="btn1Url" placeholder="https://github.com/username"></label>
+        <label><span data-i18n="btns.label" data-n="2"></span> <input id="btn2Label" maxlength="32" data-i18n-ph="ph.btn2Label"></label>
+        <label><span data-i18n="btns.url"></span> <input id="btn2Url" placeholder="https://discord.gg/invite-code"></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="col">
+    <div class="card">
+      <h3 data-i18n="pv.title"></h3>
+      <div class="rp" id="rp">
+        <div class="rp-head" id="pvHead"></div>
+        <div class="rp-body">
+          <div class="rp-art">
+            <img id="pvLarge" alt="">
+            <img id="pvSmall" class="small" alt="">
+          </div>
+          <div class="rp-text">
+            <div class="rp-app" id="pvApp"></div>
+            <div id="pvDetails"></div>
+            <div id="pvState"></div>
+            <div id="pvParty" class="muted"></div>
+            <div id="pvTime" class="green"></div>
+          </div>
+        </div>
+        <div id="pvBtns"></div>
+      </div>
+      <div class="actions">
+        <button id="applyBtn" class="primary" data-i18n="pv.apply"></button>
+        <button id="clearBtn" data-i18n="pv.clear"></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="pre.title"></h3>
+      <div class="row">
+        <input id="presetName" data-i18n-ph="ph.presetName">
+        <button id="presetSave" data-i18n="pre.save"></button>
+        <button id="presetImport" data-i18n="pre.import"></button>
+      </div>
+      <ul id="presetList" class="list"></ul>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="rot.title"></h3>
+      <label class="chk"><input type="checkbox" id="rotEnabled"> <span data-i18n="rot.enable"></span></label>
+      <label><span data-i18n="rot.interval"></span> <input id="rotInterval" type="number" min="15" value="30" placeholder="30"></label>
+      <div id="rotList" class="list"></div>
+      <p class="hint" id="rotStatus"></p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="as.title"></h3>
+      <div class="row">
+        <button id="assetLocal" class="primary" data-i18n="as.local"></button>
+        <input id="assetName" data-i18n-ph="ph.assetName" style="max-width:110px">
+        <input id="assetUrl" data-i18n-ph="ph.assetUrl">
+        <button id="assetAdd" data-i18n="as.add"></button>
+      </div>
+      <div class="row"><button id="assetPortal" data-i18n="as.portal"></button></div>
+      <ul id="assetList" class="list"></ul>
+      <p class="hint" data-i18n="as.hint"></p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="ic.title"></h3>
+      <p class="hint" style="margin:0 0 8px" data-i18n="ic.hint"></p>
+      <div class="row">
+        <input id="botToken" type="password" spellcheck="false">
+        <button id="tokenSave" data-i18n="ic.save"></button>
+      </div>
+      <div class="row"><button id="iconSet" class="primary" data-i18n="ic.pick"></button></div>
+      <p class="hint" data-i18n="ic.note"></p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="set.title"></h3>
+      <label class="chk"><input type="checkbox" id="autoConnect"> <span data-i18n="set.autoConnect"></span></label>
+      <label class="chk"><input type="checkbox" id="autoApply"> <span data-i18n="set.autoApply"></span></label>
+      <label class="chk"><input type="checkbox" id="openAtLogin"> <span data-i18n="set.openAtLogin"></span></label>
+      <label class="chk"><input type="checkbox" id="startHidden"> <span data-i18n="set.startHidden"></span></label>
+      <label><span data-i18n="set.imgbb"></span> <input id="imgbbKey" data-i18n-ph="ph.imgbb" spellcheck="false"></label>
+      <div class="row" style="margin-top:8px">
+        <button id="upCheck" data-i18n="up.check"></button>
+        <span id="upCheckInfo" class="muted"></span>
+      </div>
+      <p class="hint" data-i18n="set.hint"></p>
+    </div>
+  </section>
+</main>
+<div id="modal" class="modal">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-icon" id="upIcon">⬆</div>
+    <h2 id="upTitle"></h2>
+    <p id="upSub" class="modal-sub"></p>
+    <div id="upNotesWrap" class="notes">
+      <h4 data-i18n="up.notes"></h4>
+      <pre id="upNotes"></pre>
+    </div>
+    <div id="upProg" class="prog"><div id="upBar"></div></div>
+    <p id="upProgText" class="hint"></p>
+    <div class="modal-actions">
+      <button id="upLater"></button>
+      <button id="upAction" class="primary"></button>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+<script src="renderer.js"></script>
+</body>
+</html>
