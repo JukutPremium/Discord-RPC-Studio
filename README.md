@@ -1,5 +1,3 @@
-🇬🇧 **English** · 🇮🇩 [Bahasa Indonesia](README.id.md)
-
 # RPC Studio
 
 Customize your **Discord Rich Presence** any way you like: text, images, timers, buttons, and even automatic rotation between presets. Available for **Windows** and **macOS**.
